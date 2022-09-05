@@ -31,9 +31,9 @@
                 <div class="modal-content">
                     <a class="modal-link" href="./home.html">Home</a>
                     <a class="modal-link active" href="#">About MDHL</a>
-                    <a class="modal-link" href="">Games Schedule</a>
-                    <a class="modal-link" href="">Galery</a>
-                    <a class="modal-link" href="">Rules & Policies</a>
+                    <a class="modal-link" href="./games.html">Games Schedule</a>
+                    <a class="modal-link" href="./galery.html">Galery</a>
+                    <a class="modal-link" href="./rules&policies.html">Rules & Policies</a>
                     <a class="modal-link" href="">Registration Form</a>
                     <a class="modal-link" href="">Profile</a>
                     <a class="modal-link" href="">Contact Us</a>
@@ -48,23 +48,23 @@
         <img id="logo-about" src="./assets/Logo-MDHL.png" />
 
         <section class="accordion">
-            <div @click="expandAccordion(`mission`)">
+            <div @click="expandAccordion(`item1`)">
                 <div class="accordion-btn-container">
                     <h4>MISSION</h4>
-                    <template v-if="missionExpanded === false">
+                    <template v-if="accordionItem1Expanded === false">
                         <div class="icon">
                             <span class="arrow-line1"></span>
                             <span class="arrow-line2"></span>
                         </div>
                     </template>
-                    <template v-if="missionExpanded === true">
+                    <template v-if="accordionItem1Expanded === true">
                         <div class="icon">
                             <span class="arrow-line1b"></span>
                             <span class="arrow-line2b"></span>
                         </div>
                     </template>
                 </div>
-                <template v-if="missionExpanded === true">
+                <template v-if="accordionItem1Expanded === true">
                     <p class="content">To support young athletes living in Chicago's northside neighborhoods, who have
                         an interest in learning
                         and playing soccer, with opportunities to learn and practice skills related to the game of
@@ -72,45 +72,45 @@
                         specifically those skills around team cooperation and good sportsmanship.</p>
                 </template>
             </div>
-            <div @click="expandAccordion(`vision`)">
+            <div @click="expandAccordion(`item2`)">
                 <div class="accordion-btn-container">
                     <h4>VISION</h4>
-                    <template v-if="visionExpanded === false">
+                    <template v-if="accordionItem2Expanded === false">
                         <div class="icon">
                             <span class="arrow-line1"></span>
                             <span class="arrow-line2"></span>
                         </div>
                     </template>
-                    <template v-if="visionExpanded === true">
+                    <template v-if="accordionItem2Expanded === true">
                         <div class="icon">
                             <span class="arrow-line1b"></span>
                             <span class="arrow-line2b"></span>
                         </div>
                     </template>
                 </div>
-                <template v-if="visionExpanded === true">
+                <template v-if="accordionItem2Expanded === true">
                     <p class="content">The Mighty Ducks Hockey League aspires to develop strong, well-rounded, and
                         mindful athletes through the
                         building of character, self-discipline, and leadership.</p>
                 </template>
             </div>
-            <div @click="expandAccordion(`generalInfo`)">
+            <div @click="expandAccordion(`item3`)">
                 <div class="accordion-btn-container">
                     <h4>GENERAL INFORMATION</h4>
-                    <template v-if="generalInfoExpanded === false">
+                    <template v-if="accordionItem3Expanded === false">
                         <div class="icon">
                             <span class="arrow-line1"></span>
                             <span class="arrow-line2"></span>
                         </div>
                     </template>
-                    <template v-if="generalInfoExpanded === true">
+                    <template v-if="accordionItem3Expanded === true">
                         <div class="icon">
                             <span class="arrow-line1b"></span>
                             <span class="arrow-line2b"></span>
                         </div>
                     </template>
                 </div>
-                <template v-if="generalInfoExpanded === true">
+                <template v-if="accordionItem3Expanded === true">
                     <p class="content">The Mighty Ducks Hockey League was established in 1996 to provide athletes
                         residing in Chicago's
                         northside neighborhoods an environment in which to learn and play soccer. To be a member of

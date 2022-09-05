@@ -5,14 +5,14 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Game Info</title>
+    <title>MDHL Galery</title>
     <link rel="stylesheet" href="./style.css">
 </head>
 
 <body id="app">
     <header>
         <nav class="navbar">
-            <h1 class="page-title">GAME INFO</h1>
+            <h1 class="page-title">GALERY</h1>
             <label class="hamburger-container">
                 <input v-model="menu" type="checkbox" name="" id="hamburger-btn">
                 <div class="bar">
@@ -29,10 +29,10 @@
         <template v-if="menu === true">
             <div class="modal-background">
                 <div class="modal-content">
-                    <a class="modal-link" href="#">Home</a>
+                    <a class="modal-link" href="./home.html">Home</a>
                     <a class="modal-link" href="./about.html">About MDHL</a>
                     <a class="modal-link" href="./games.html">Games Schedule</a>
-                    <a class="modal-link" href="./galery.html">Galery</a>
+                    <a class="modal-link active" href="#">Galery</a>
                     <a class="modal-link" href="">Rules & Policies</a>
                     <a class="modal-link" href="">Registration Form</a>
                     <a class="modal-link" href="">Profile</a>
@@ -41,79 +41,17 @@
             </div>
         </template>
 
-        <div class="match-details-container">
-            <div class="card-event">
-                <div class="card-match-content">
-                    <p class="text-card-match">{{gameDetails[0].team1}}</p>
-                    <p class="versus">VS</p>
-                    <p class="text-card-match">{{gameDetails[0].team2}}</p>
-                </div>
-            </div>
-            <div class="game-details">
-                <h5>Date: {{gameDetails[0].month}} {{gameDetails[0].day}}</h5>
-                <h5>Time: {{gameDetails[0].time}}</h5>
-                <h5>Location: {{gameDetails[0].location}}</h5>
-                <h5>Status: {{gameDetails[0].status}}</h5>
-            </div>
-            <div class="map-container">
-                <div v-html="gameDetails[0].map"></div>
-            </div>
-        </div>
-        <div class="card-event">
-            <h3 class="card-title">FINAL SCORE</h3>
-            <div class="card-match-content">
-                <p class="text-card-match">{{gameDetails[0].score1}}</p>
-                <p class="text-card-match">-</p>
-                <p class="text-card-match">{{gameDetails[0].score2}}</p>
-            </div>
-        </div>
-        <div class="table-header">
-            <h5>{{gameDetails[0].team1}}</h5>
-            <h5>TEAMS INFO</h5>
-            <h5>{{gameDetails[0].team2}}</h5>
-        </div>
-        <div class="table-container">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Player</th>
-                        <th>Pos</th>
-                        <th>#</th>
-                    </tr>
-                </thead>                
-                <tbody>
-                    <tr v-for="player in teams[0].players">
-                        <td>{{player.name}}</td>
-                        <td>{{player.position}}</td>
-                        <td>{{player.number}}</td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Player</th>
-                        <th>Pos</th>
-                        <th>#</th>
-                    </tr>
-                </thead>                
-                <tbody>
-                    <tr v-for="player in teams[1].players">
-                        <td>{{player.name}}</td>
-                        <td>{{player.position}}</td>
-                        <td>{{player.number}}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
+        <section class="galery-container">
+            <template v-for="picture in pictures">
+                <img class="picture" :src="picture"/>
+            </template>
+        </section>
 
     </main>
 
     <footer>
         <div class="footer">
-            <a href="#"><svg style="width:24px;height:24px" viewBox="0 0 24 24">
+            <a href="./home.html"><svg style="width:24px;height:24px" viewBox="0 0 24 24">
                     <path fill="black" d="M10,20V14H14V20H19V12H22L12,3L2,12H5V20H10Z" />
                 </svg></a>
             <a href="./about.html"><svg style="width:24px;height:24px" viewBox="0 0 24 24">
@@ -124,8 +62,8 @@
                     <path fill="black"
                         d="M17.68 4H14.3L12.56 8C12.53 8.04 12.45 8.22 12.31 8.5S12.06 9.04 12 9.19L9.7 4H6.32L10.41 12.84C10.5 13.06 10.73 13.59 11.11 14.43C11.5 15.28 11.78 15.91 12 16.35L13.41 19.44C13.6 19.78 13.89 19.95 14.3 19.95L19 20V16H15L13.6 12.84L17.68 4M20.03 16V20H22V17C22 16.73 21.91 16.5 21.72 16.28C21.53 16.08 21.3 16 21 16H20.03M5 16V20L9.7 19.95C10.11 19.95 10.4 19.78 10.59 19.44L11.44 17.5L9.84 14.06L9 16H5M2 20H3.97V16H3C2.7 16 2.47 16.08 2.28 16.28C2.09 16.5 2 16.73 2 17V20Z" />
                 </svg></a>
-            <a href="./galery.html"><svg style="width:24px;height:24px" viewBox="0 0 24 24">
-                    <path fill="black"
+            <a class="active" href="#"><svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                    <path fill="#20b86f"
                         d="M8.5,13.5L11,16.5L14.5,12L19,18H5M21,19V5C21,3.89 20.1,3 19,3H5A2,2 0 0,0 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19Z" />
                 </svg></a>
             <a href="./profile.html"><svg style="width:24px;height:24px" viewBox="0 0 24 24">
