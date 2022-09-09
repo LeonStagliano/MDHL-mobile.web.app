@@ -3,6 +3,7 @@ const { createApp } = Vue
 createApp({
     data() {
         return {
+            page: `welcome`,
             events: [
                 {
                     type: `event`,
@@ -538,6 +539,9 @@ createApp({
             this.gamesFiltered = this.games.filter(game => {
                 return (this.selectedTeam === game.team1 || this.selectedTeam === game.team2 || this.selectedTeam === `All`)
             })
+        },
+        setDocumentTitle: function () {
+            document.title = this.page.toUpperCase()
         }
     }
 }).mount('#app')

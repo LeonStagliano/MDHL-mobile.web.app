@@ -17,9 +17,10 @@
     top: 0;
 }
 
-
-
-
+.link{
+    background: none;
+    border: none;
+}
 
 .hamburger-container {
     margin-right: 35px;
@@ -114,6 +115,7 @@
     font-size: 16px;
     font-weight: bold;
     margin-left: 25px;
+    text-transform: uppercase;
 }
 
 body {
@@ -276,6 +278,10 @@ body {
 @media (max-height: 550px) {
     #logo-about {
         display: none;
+    }
+    .logo{
+        max-height: 200px;
+        width: auto;
     }
 }
 
@@ -593,7 +599,7 @@ body {
     margin-top: 20px;
 }
 
-.link{
+.link-style{
     color: white;
 }
 
@@ -603,7 +609,7 @@ body {
 
 .hero-html{
     max-width: 100vw;
-    min-height: 100vh;
+    min-height: 80vh;
     display: flex;
     align-items: center;
     justify-content: center;
