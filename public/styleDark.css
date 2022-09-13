@@ -7,7 +7,7 @@
 }
 
 .navbar {
-    background-color: #C2C2C2;
+    background-color: #262424;
     width: 100vw;
     height: 36px;
     display: flex;
@@ -16,7 +16,7 @@
     position: fixed;
     z-index: 1;
     top: 0;
-    box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.219);
+    box-shadow: 0px 3px 3px rgba(255, 255, 255, 0.219);
 }
 
 .link{
@@ -46,7 +46,7 @@
 .bar .middle {
     height: 3px;
     width: 24px;
-    background: black;
+    background: #C2C2C2;
     border-radius: 50px;
     position: absolute;
     transition: 0.3s ease;
@@ -56,7 +56,7 @@
     bottom: 3px;
     height: 3px;
     width: 24px;
-    background: black;
+    background: #C2C2C2;
     border-radius: 50px;
     position: absolute;
     transition: 0.3s ease;
@@ -66,7 +66,7 @@
     top: 6px;
     height: 3px;
     width: 24px;
-    background: black;
+    background: #C2C2C2;
     border-radius: 50px;
     position: absolute;
     transition: .3s ease;
@@ -93,11 +93,13 @@
 
 
 
-
+path{
+    fill: #C2C2C2;
+}
 
 
 .footer {
-    background-color: #C2C2C2;
+    background-color: #262424;
     width: 100vw;
     height: 36px;
     display: flex;
@@ -106,7 +108,7 @@
     position: fixed;
     z-index: 1;
     bottom: 0;
-    box-shadow: 0px -3px 3px rgba(0, 0, 0, 0.219);
+    box-shadow: 0px -3px 3px rgba(255, 255, 255, 0.219);
 }
 
 .active {
@@ -119,11 +121,12 @@
     font-weight: bold;
     margin-left: 25px;
     text-transform: uppercase;
+    color: #C2C2C2;
 }
 
 body {
     margin: 56px 0px;
-    background-image: url("./assets/FondoBN-L.png");
+    background-image: url("./assets/FondoBN-D.png");
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -135,12 +138,13 @@ body {
     margin: 10px 0px 34px 0px;
     width: 100vw;
     padding: 7px 0px;
-    background-color: rgba(32, 184, 111, 0.64);
+    background-color: #20b86f3d;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.219);
+    box-shadow: 0px 3px 3px rgba(255, 255, 255, 0.219);
+    color: #ffff
 }
 
 .main-title {
@@ -162,8 +166,8 @@ body {
     justify-content: space-evenly;
     align-items: center;
     background-color: rgba(40, 41, 41, 0.64);
-    box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.219);
-    color: #C2C2C2 !important;
+    box-shadow: 0px 3px 3px rgba(255, 255, 255, 0.219);
+    color: #757575 !important;
 }
 .card-event {
     margin: 3px 0px;
@@ -173,8 +177,9 @@ body {
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
-    background-color: rgba(32, 184, 111, 0.64);
-    box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.219);
+    background-color: #20b86f3d;
+    box-shadow: 0px 3px 3px rgba(255, 255, 255, 0.219);
+    color:#ffff
 }
 
 
@@ -217,11 +222,12 @@ body {
 
 .content {
     padding: 15px 10px;
-    background-color: rgba(32, 184, 111, 0.64);
+    background-color: #20b86f3d;
     text-align: center;
     font-size: 14px;
     margin-bottom: 10px;
     box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.219);
+    color: #ffff
 }
 
 .accordion-btn-container, .btn {
@@ -231,9 +237,10 @@ body {
     align-items: center;
     position: relative;
     padding: 7px;
-    background-color: rgba(32, 184, 111, 0.64);
+    background-color: #20b86f3d;
     margin-top: 10px;
-    box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.219);
+    box-shadow: 0px 3px 3px rgba(255, 255, 255, 0.219);
+    color: #ffff
 }
 
 .icon {
@@ -246,7 +253,7 @@ body {
 .arrow-line2b {
     height: 3px;
     width: 12px;
-    background: black;
+    background: #C2C2C2;
     border-radius: 50px;
     position: absolute;
 }
@@ -271,7 +278,7 @@ body {
     width: 60vw;
     align-self: center;
     margin-bottom: 3vh;
-    filter: drop-shadow(0px 10px 8px black);
+    filter: drop-shadow(0px 10px 10px rgba(255, 255, 255, 0.603));
 }
 
 .galery-container{
@@ -286,7 +293,7 @@ body {
     margin: 2px 0px;
     max-width: 100vw;
     height: auto;
-    box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.219);
+    box-shadow: 0px 3px 3px rgba(255, 255, 255, 0.219);
 }
 
 @media (orientation: landscape) {
@@ -319,7 +326,7 @@ body {
     min-height: 36vh;
     bottom: 12vh;
     border-radius: 1rem;
-    background-color: #C2C2C2;
+    background-color: #262424;
     position: fixed;
     z-index: 2;
     display: flex;
@@ -331,7 +338,7 @@ body {
 .modal-link {
     text-decoration: none;
     padding: 6px 0px;
-    color: black;
+    color: #ffff;
     font-style: italic;
 }
 
@@ -339,12 +346,13 @@ body {
     margin: 10px 0px 0px 0px;
     width: 100vw;
     padding: 7px 0px;
-    background-color: rgba(32, 184, 111, 0.64);
+    background-color: #20b86f3d;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.219);
+    box-shadow: 0px 3px 3px rgba(255, 255, 255, 0.219);
+    color: #ffff
 }
 
 .tap-msg {
@@ -362,8 +370,9 @@ body {
     margin-top: 6px;
     width: 100vw;
     padding: 7px 0px;
-    background-color: rgba(32, 184, 111, 0.64);
-    box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.219);
+    background-color: #20b86f3d;
+    box-shadow: 0px 3px 3px rgba(255, 255, 255, 0.219);
+    color: #ffff
 }
 
 .select-label {
@@ -378,10 +387,11 @@ body {
 }
 
 .select-options {
-    background-color: rgba(32, 184, 111, 0.64);
-    border-bottom: 2px solid #20b86f;
-    box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.219);
+    background-color: #20b86f3d;
+    border-bottom: 2px solid #178851;
+    box-shadow: 0px 3px 3px rgba(255, 255, 255, 0.219);
     text-align: center;
+    color: #ffff
 }
 
 .options {
@@ -389,14 +399,14 @@ body {
 }
 
 .options:nth-child(odd) {
-    background-color: #20b86f;
+    background-color: #20b86f3d;
     padding: 4px;
 }
 
 .check-box {
     width: 16px;
     height: 16px;
-    border: 1px solid black;
+    border: 1px solid #C2C2C2;
     margin-right: 21px;
     align-items: center;
 }
@@ -404,13 +414,13 @@ body {
 .checked {
     width: 10px;
     height: 10px;
-    background-color: black;
+    background-color: #C2C2C2;
     margin: 2px;
 }
 
 .card-link{
     text-decoration: none;
-    color: black;
+    color: #ffff;
 }
 
 .game-details{
@@ -422,17 +432,19 @@ body {
 .match-details-container{
     padding-bottom: 3px;
     margin-bottom: 3px;
-    background-color: rgba(32, 184, 111, 0.64);
-    box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.219);
+    background-color: #20b86f3d;
+    box-shadow: 0px 3px 3px rgba(255, 255, 255, 0.219);
+    color:#ffff
 }
 
 .table-header{
     padding: 6px;
     display: flex;
     justify-content: space-between;
-    background-color: rgba(32, 184, 111, 0.64);
-    box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.219);
+    background-color: #20b86f3d;
+    box-shadow: 0px 3px 3px rgba(255, 255, 255, 0.219);
     font-size: 16px;
+    color: #ffff
 }
 
 .table-container{
@@ -444,14 +456,15 @@ body {
     margin: 1px;
     width: 50vw;
     margin-top: 3px;
-    background-color: rgba(32, 184, 111, 0.64);
-    box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.219);
+    background-color: #20b86f3d;
+    box-shadow: 0px 3px 3px rgba(255, 255, 255, 0.219);
+    color: #ffff
 }
 
 .card-comment{
     padding: 10px;
-    background-color: rgba(32, 184, 111, 0.64);
-    box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.219);
+    background-color: #20b86f3d;
+    box-shadow: 0px 3px 3px rgba(255, 255, 255, 0.219);
     text-align: center;
     font-style: italic;
     font-size: 14px;
@@ -459,10 +472,11 @@ body {
 
 .u-list, .o-list{
     margin: 0;
-    background-color: rgba(32, 184, 111, 0.64);
-    box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.219);
+    background-color: #20b86f3d;
+    box-shadow: 0px 3px 3px rgba(255, 255, 255, 0.219);
     text-align: start;
     font-size: 14px;
+    color: #ffff
 }
 
 .list-content{
@@ -474,8 +488,8 @@ body {
 }
 
 .form{
-    background-color: rgba(32, 184, 111, 0.64);
-    box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.219);
+    background-color: #20b86f3d;
+    box-shadow: 0px 3px 3px rgba(255, 255, 255, 0.219);
     padding: 10px 30px;
 }
 
@@ -483,9 +497,10 @@ body {
     margin: 12px 0px;
     min-height: 36px;
     border-color:#20b86f;
-    background-color: #ceffe7;
+    background-color: #ceffe74d;
     display: flex;
     align-items: center;
+    color: #ffff
 }
 
 .radio-checkbox-container{
@@ -531,6 +546,7 @@ body {
     font-style: italic;
     display: flex;
     justify-content: space-between;
+    color: #ffff
 }
 
 .school-option{
@@ -553,12 +569,13 @@ body {
     width: 100%;
     font-size: 16px;
     margin-bottom: 6px;
+    color: #ffff
 }
 
 .form-select{
     max-width: 97%;
     margin: 6px 0px;
-    background-color: #ceffe7;
+    background-color: #ceffe74d;
 }
 
 .radio-label{
@@ -569,6 +586,7 @@ body {
     font-size: 14px;
     text-align: start;
     margin: 6px;
+    color: #ffff
 }
 
 .btn{
@@ -581,7 +599,7 @@ body {
     font-weight: bold;
     border: 1px solid rgba(14, 88, 52, 0.64);
     background: -webkit-linear-gradient( rgba(32, 184, 111, 0.64) 9%,rgba(14, 88, 52, 0.64) 100%);
-    box-shadow: 6px 6px 3px rgba(0, 0, 0, 0.219);
+    box-shadow: 6px 6px 3px rgba(255, 255, 255, 0.219);
     text-align: center;
 }
 
@@ -592,8 +610,8 @@ body {
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
-    background-color: rgba(32, 184, 111, 0.64);
-    box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.219);
+    background-color: #20b86f3d;
+    box-shadow: 0px 3px 3px rgba(255, 255, 255, 0.219);
     text-align: center;
     padding: 10px 0px;
 }
@@ -601,6 +619,7 @@ body {
 .standard-text{
     font-size: 14px;
     margin: 6px 0px;
+    color: #ffff
 }
 
 .email{
@@ -615,7 +634,7 @@ body {
 }
 
 .link-style{
-    color: white;
+    color: #64ffb4;
 }
 
 .login-card{
@@ -642,5 +661,5 @@ body {
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     font-size: 36px;
     color: #39b394;
-    text-shadow: 5px 8px 3px black;
+    text-shadow: 5px 8px 3px rgba(255, 255, 255, 0.219);
 }

@@ -443,7 +443,8 @@ createApp({
             showFinisheds: false,
             horaActual: new Date(),
             gameDetails: ``,
-            showAlert: false
+            showAlert: false,
+            pageTheme: `./style.css`,
         }
     },
     created() {
@@ -456,6 +457,9 @@ createApp({
         }
 
         this.catchSchools()
+
+        
+
     },
     methods: {
         expandAccordion: function (accordionElement) {
@@ -531,6 +535,16 @@ createApp({
                     this.schools.push(game.location)
                 }
             })
+        },
+        darkMode: function () {
+            this.pageTheme === `./style.css` ? this.pageTheme = `./styleDark.css` : this.pageTheme = `./style.css`
+            let themeSelected = document.getElementById(`style`)
+            themeSelected.href = this.pageTheme
+
+
+        },
+        catchTheme: function () {
+            // AGARRAR EL TEMA GUARDADO EN EL LOCAL STORAGE (DARK/LIGHT)
         }
 
     },

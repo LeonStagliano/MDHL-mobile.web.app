@@ -6,8 +6,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mighty Ducks Hockey League</title>
-    <link rel="stylesheet" href="./style.css">
+    <link id="style" rel="stylesheet" href="./style.css">
     <link rel="shortcut icon" href="./assets/Logo-MDHL.png" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@500&display=swap" rel="stylesheet">
 </head>
 
 <body id="app">
@@ -16,7 +19,7 @@
     <!-- WELCOME PAGE -->
 
     <template v-if="page === `welcome`">
-        <div class="hero-html">
+        <div class="hero-container">
             <button class="link" @click="page = `home`" class="hero-container">
                 <img class="logo" src="./assets/Logo-MDHL.png" />
                 <div class="hero-text-container">
@@ -235,7 +238,7 @@
                 </section>
             </template>
 
-            <!-- CALENDARIO DE JUEGOS -->
+            <!-- GAMES SCHEDULE -->
 
             <template v-if="page === `games schedule`">
 
@@ -304,7 +307,7 @@
 
             </template>
 
-            <!-- DETALLES DEL JUEGO -->
+            <!-- GAME DETAILS -->
 
             <template v-if="page === `game info`">
 
@@ -377,7 +380,7 @@
 
             </template>
 
-            <!-- GALERIA -->
+            <!-- GALERY -->
 
             <template v-if="page === `galery`">
 
@@ -389,7 +392,7 @@
 
             </template>
 
-            <!-- REGLAS Y POLITICAS -->
+            <!-- RULES & POLICIES -->
 
             <template v-if="page === `rules & policies`">
 
@@ -866,7 +869,7 @@
 
             </template>
 
-            <!-- FORMULARIO DE REGISTRO -->
+            <!-- REGISTRATION FORM -->
 
             <template v-if="page === `registration form`">
 
@@ -953,13 +956,13 @@
                             <select required class="form-select input-clean">
                                 <option selected hidden value="">First Closest School</option>
                                 <template v-for="school in schools">
-                                    <option class="input-label" :value="school">{{school}}</option>
+                                    <option class="school-option" :value="school">{{school}}</option>
                                 </template>
                             </select>
                             <select required class="form-select input-clean">
                                 <option selected hidden value="">Second Closest School</option>
                                 <template v-for="school in schools">
-                                    <option class="input-label" :value="school">{{school}}</option>
+                                    <option class="school-option" :value="school">{{school}}</option>
                                 </template>
                             </select>
                         </fieldset>
@@ -1111,7 +1114,7 @@
 
             </template>
 
-            <!-- PANTALLA DE LOGUEO -->
+            <!-- LOGIN-->
 
             <template v-if="page === `profile`">
 
@@ -1141,7 +1144,7 @@
 
             </template>
 
-            <!-- PAGINA DE CONTACTO -->
+            <!-- CONTACT -->
 
             <template v-if="page === `contact us`">
 
