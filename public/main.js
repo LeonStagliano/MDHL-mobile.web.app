@@ -408,6 +408,26 @@ createApp({
                             number: `17`
                         },
                     ]
+                },
+                {
+                    team: `U3`,
+                    teamName: ``,
+                    players: []
+                },
+                {
+                    team: `U4`,
+                    teamName: ``,
+                    players: []
+                },
+                {
+                    team: `U5`,
+                    teamName: ``,
+                    players: []
+                },
+                {
+                    team: `U6`,
+                    teamName: ``,
+                    players: []
                 }
             ],
             pictures: [
@@ -444,7 +464,8 @@ createApp({
             horaActual: new Date(),
             gameDetails: ``,
             showAlert: false,
-            pageTheme: `./style.css`,
+            pageTheme: ``,
+            theme: ``
         }
     },
     created() {
@@ -452,13 +473,19 @@ createApp({
         this.gamesFiltered = this.games
         this.setGameStatus()
 
-        if(document.title === `Game Info`){
+        if (document.title === `Game Info`) {
             this.catchGameTapped()
         }
 
         this.catchSchools()
 
-        
+        if (JSON.parse(localStorage.getItem(`themeSelected`))) {
+            this.pageTheme = JSON.parse(localStorage.getItem(`themeSelected`))
+            if(this.pageTheme === `./styleDark.css`){
+                this.theme = true
+            }
+            
+        }
 
     },
     methods: {
@@ -531,20 +558,10 @@ createApp({
         },
         catchSchools: function () {
             this.games.forEach(game => {
-                if(!this.schools.includes(game.location)){
+                if (!this.schools.includes(game.location)) {
                     this.schools.push(game.location)
                 }
             })
-        },
-        darkMode: function () {
-            this.pageTheme === `./style.css` ? this.pageTheme = `./styleDark.css` : this.pageTheme = `./style.css`
-            let themeSelected = document.getElementById(`style`)
-            themeSelected.href = this.pageTheme
-
-
-        },
-        catchTheme: function () {
-            // AGARRAR EL TEMA GUARDADO EN EL LOCAL STORAGE (DARK/LIGHT)
         }
 
     },
@@ -556,6 +573,12 @@ createApp({
         },
         setDocumentTitle: function () {
             document.title = this.page.toUpperCase()
-        }
+        },
+        darkMode: function () {
+            this.theme === true ? this.pageTheme = `./styleDark.css` : this.pageTheme = `./style.css`
+            let themeSelected = document.getElementById(`style`)
+            themeSelected.href = this.pageTheme
+            localStorage.setItem(`themeSelected`, JSON.stringify(this.pageTheme))
+        },
     }
 }).mount('#app')
