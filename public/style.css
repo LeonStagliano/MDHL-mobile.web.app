@@ -612,6 +612,7 @@ body {
 
 .avatar{
     margin-top: 20px;
+    border-radius: 100%;
 }
 
 .link-style{
@@ -720,4 +721,32 @@ body {
 .header-comment{
     display: flex;
     justify-content: space-between;
+}
+
+.navbar-buttons{
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.back-btn{
+    position: relative;
+}
+
+.back-icon-line1{
+    height: 3px;
+    width: 12px;
+    background: black;
+    border-radius: 50px;
+    position: absolute;
+    transform: translateX(-51px) rotate(45deg) translateY(5px);
+}
+
+.back-icon-line2{
+    height: 3px;
+    width: 12px;
+    background: black;
+    border-radius: 50px;
+    position: absolute;
+    transform: translateX(-49px) rotate(-45deg) translateY(-7px);
 }

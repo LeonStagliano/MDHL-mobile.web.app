@@ -632,6 +632,7 @@ body {
 
 .avatar{
     margin-top: 20px;
+    border-radius: 100%;
 }
 
 .link-style{
@@ -729,6 +730,7 @@ body {
 
 .no-comment-alert{
     text-align: center;
+    color: #ffff
 }
 
 .textarea{

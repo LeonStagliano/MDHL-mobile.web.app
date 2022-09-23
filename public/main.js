@@ -4,6 +4,7 @@ createApp({
     data() {
         return {
             page: `welcome`,
+            lastPage: ``,
             events: [
                 {
                     type: `event`,
@@ -466,7 +467,18 @@ createApp({
             showAlert: false,
             pageTheme: ``,
             theme: ``,
-            newComment: ``
+            newComment: ``,
+            usernameRegister: ``,
+            emailRegister: ``,
+            passRegister: ``,
+            confirmPassRegister: ``,
+            emailLogin: ``,
+            passLogin: ``,
+            userAlias: `Anonymous`,
+            userAvatar: null,
+            loggedIn: false,
+            user: null
+
         }
     },
     created() {
@@ -485,7 +497,6 @@ createApp({
             if (this.pageTheme === `./styleDark.css`) {
                 this.theme = true
             }
-
         }
 
     },
@@ -566,7 +577,7 @@ createApp({
         },
         sendComment: function () {
             this.games.forEach(game => {
-                if(!Array.isArray(game.comments)){
+                if (!Array.isArray(game.comments)) {
                     game.comments = []
                 }
                 if (game.id === this.gameDetails.id) {
@@ -579,6 +590,138 @@ createApp({
                 }
             })
             this.newComment = ``
+        },
+        changePage: function (page) {
+            this.lastPage = this.page
+            this.page = page
+        },
+        registerNewUser: function () {
+            if (this.emailRegister != `` && this.passRegister != `` && this.passRegister === this.confirmPassRegister) {
+                firebase.auth().createUserWithEmailAndPassword(this.emailRegister, this.passRegister)
+                    .then((userCredential) => {
+
+                        const user = userCredential.user;
+
+                        this.page = 'login'
+                        this.usernameRegister = ``
+                        this.emailRegister = ``
+                        this.passRegister = ``
+                        this.confirmPassRegister = ``
+                    })
+                    .catch((error) => {
+
+                        const errorCode = error.code;
+                        const errorMessage = error.message;
+
+                        console.log(errorCode)
+                        console.log(errorMessage)
+                        // ..
+                    })
+            }
+        },
+        userLogin: function () {
+            if (this.emailLogin != `` && this.passLogin != ``) {
+                firebase.auth().signInWithEmailAndPassword(this.emailLogin, this.passLogin)
+                    .then((userCredential) => {
+
+                        const user = userCredential.user;
+
+                        this.page = 'home'
+                        this.loggedIn = true
+                        this.user = user
+                        this.userAlias = this.user.email
+                        this.emailLogin = ''
+                        this.passLogin = ''
+                        // ...
+                    })
+                    .catch((error) => {
+                        var errorCode = error.code;
+                        var errorMessage = error.message;
+                        console.log(errorCode)
+                        console.log(errorMessage)
+                    });
+            }
+        },
+        registerWithGoogle: function () {
+            const provider = new firebase.auth.GoogleAuthProvider();
+
+            firebase.auth()
+                .signInWithPopup(provider)
+                .then((result) => {
+                    /** @type {firebase.auth.OAuthCredential} */
+                    const credential = result.credential;
+
+                    // This gives you a Google Access Token. You can use it to access the Google API.
+                    const token = credential.accessToken;
+                    // The signed-in user info.
+                    const user = result.user;
+                    console.log(user)
+
+                    this.page = 'login'
+                    // ...
+                }).catch((error) => {
+                    // Handle Errors here.
+                    const errorCode = error.code;
+                    console.log(errorCode)
+                    const errorMessage = error.message;
+                    // The email of the user's account used.
+                    const email = error.email;
+                    // The firebase.auth.AuthCredential type that was used.
+                    const credential = error.credential;
+                    // ...
+                });
+        },
+        loginWithGoogle: function () {
+            const provider = new firebase.auth.GoogleAuthProvider();
+
+            firebase.auth()
+                .signInWithPopup(provider)
+                .then((result) => {
+                    /** @type {firebase.auth.OAuthCredential} */
+
+                    let credential = result.credential;
+
+                    // This gives you a Google Access Token. You can use it to access the Google API.
+                    let token = credential.accessToken;
+                    // The signed-in user info.
+                    let user = result.user;
+
+                    this.user = user
+                    this.page = 'home'
+                    this.userAlias = this.user.displayName
+                    this.loggedIn = true
+                    this.userAvatar = this.user.photoURL
+
+                    this.emailLogin = ''
+                    this.passLogin = ''
+
+                    this.emailRegister = ''
+                    this.passRegister = ''
+                    console.log(this.user)
+                    // ...
+                }).catch((error) => {
+                    // Handle Errors here.
+                    var errorCode = error.code;
+                    console.log(errorCode)
+                    var errorMessage = error.message;
+                    // The email of the user's account used.
+                    var email = error.email;
+                    // The firebase.auth.AuthCredential type that was used.
+                    var credential = error.credential;
+                    // ...
+                });
+        },
+        logOut: function () {
+            firebase.auth().signOut();
+
+            this.user = null
+            this.userAlias = 'Anonimo'
+            this.page = 'home'
+            this.loggedIn = false
+
+            this.emailLogin = ''
+            this.passLogin = ''
+            // document.getElementById('avatar').src = this.foto
         }
 
     },
@@ -596,6 +739,41 @@ createApp({
             let themeSelected = document.getElementById(`style`)
             themeSelected.href = this.pageTheme
             localStorage.setItem(`themeSelected`, JSON.stringify(this.pageTheme))
+        },
+        inicioSesionUsuario: function () {
+            firebase.auth().onAuthStateChanged((user) => {
+                if (user) {
+                    this.user = user
+                    this.page = 'home'
+
+                    this.loggedIn = true
+                    this.userAvatar = this.user.photoURL
+
+                    this.emailLogin = ''
+                    this.passLogin = ''
+
+                    this.emailRegister = ''
+                    this.passRegister = ''
+
+                    let userInfo = JSON.parse(JSON.stringify(this.user))
+
+                    if (userInfo.displayName) {
+                        this.userAlias = userInfo.displayName
+                    } else {
+                        this.userAlias = userInfo.email
+                    }
+
+                } else {
+                    this.user = null
+                    this.userAlias = 'Anonimo'
+                    this.page = 'welcome'
+                    this.loggedIn = false
+
+                    this.emailLogin = ''
+                    this.passLogin = ''
+                }
+            })
+
         },
     }
 }).mount('#app')
