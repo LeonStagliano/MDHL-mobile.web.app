@@ -3,7 +3,9 @@ const { createApp } = Vue
 createApp({
     data() {
         return {
+            itsLoading: true,
             page: `welcome`,
+            lastPage: ``,
             events: [
                 {
                     type: `event`,
@@ -408,6 +410,26 @@ createApp({
                             number: `17`
                         },
                     ]
+                },
+                {
+                    team: `U3`,
+                    teamName: ``,
+                    players: []
+                },
+                {
+                    team: `U4`,
+                    teamName: ``,
+                    players: []
+                },
+                {
+                    team: `U5`,
+                    teamName: ``,
+                    players: []
+                },
+                {
+                    team: `U6`,
+                    teamName: ``,
+                    players: []
                 }
             ],
             pictures: [
@@ -417,7 +439,7 @@ createApp({
                 "https://i0.wp.com/russianmachineneverbreaks.com/wp-content/uploads/2018/05/jay-beagle-kids-practice-3.jpg?ssl=1",
                 "https://media.purehockey.com/image/upload/v1565619693/wp-blog/best-hockey-drills-for-kids",
                 "https://bloximages.newyork1.vip.townnews.com/conwaydailysun.com/content/tncms/assets/v3/editorial/d/9d/d9d3ed42-7a1e-11ec-9a9f-5f7c44f2836b/61e9aa0103695.image.jpg?resize=1500%2C998",
-                "https://thumbs.dreamstime.com/b/hockey-goalie-4123672.jpg",
+                "https://cdn.pixabay.com/photo/2013/01/31/03/42/landscape-76913_960_720.jpg",
                 "https://cdn2.sportngin.com/attachments/photo/807f-140080759/tgmITEb_large.jpg",
                 "https://www.lakeplacid.com/f/styles/standard_header/public/page/34697/whitface-ski-infographicpage001.jpg?itok=4_0FQEFw"
             ],
@@ -444,7 +466,25 @@ createApp({
             horaActual: new Date(),
             gameDetails: ``,
             showAlert: false,
-            pageTheme: `./style.css`,
+            pageTheme: ``,
+            theme: ``,
+            newComment: ``,
+            allComments: [],
+            matchComments: [],
+            usernameRegister: ``,
+            emailRegister: ``,
+            passRegister: ``,
+            confirmPassRegister: ``,
+            emailLogin: ``,
+            passLogin: ``,
+            userAlias: `Anonymous`,
+            userAvatar: null,
+            loggedIn: false,
+            user: null,
+            alertLogin: false,
+            alertMsg: ``,
+            alertMustBeLogged: false
+
         }
     },
     created() {
@@ -452,13 +492,22 @@ createApp({
         this.gamesFiltered = this.games
         this.setGameStatus()
 
-        if(document.title === `Game Info`){
-            this.catchGameTapped()
-        }
-
         this.catchSchools()
 
-        
+        if (JSON.parse(localStorage.getItem(`themeSelected`))) {
+            this.pageTheme = JSON.parse(localStorage.getItem(`themeSelected`))
+            if (this.pageTheme === `./styleDark.css`) {
+                this.theme = true
+            }
+        }
+
+        const commentsDB = firebase.database().ref(`/Comments`)
+
+        commentsDB.on(`child_added`, (data) => {
+            this.bringComments(data)
+        })
+
+        this.itsLoading = false
 
     },
     methods: {
@@ -523,30 +572,205 @@ createApp({
                 }
             })
         },
-        catchGameTapped: function () {
-            let urlSearch = window.location.search
-            let gameID = urlSearch.slice(4)
-
-            this.gameDetails = this.games.filter(game => game.id === gameID)
-        },
         catchSchools: function () {
             this.games.forEach(game => {
-                if(!this.schools.includes(game.location)){
+                if (!this.schools.includes(game.location)) {
                     this.schools.push(game.location)
                 }
             })
         },
-        darkMode: function () {
-            this.pageTheme === `./style.css` ? this.pageTheme = `./styleDark.css` : this.pageTheme = `./style.css`
-            let themeSelected = document.getElementById(`style`)
-            themeSelected.href = this.pageTheme
+        sendComment: function () {
 
+            let comment = {
+                user: this.userAlias ? this.userAlias : this.user.email,
+                date: `${new Date().toLocaleTimeString()} - ${new Date().toLocaleDateString()}`,
+                comment: this.newComment,
+                userAvatar: this.user.photoURL ? this.user.photoURL : ``,
+                matchId: this.gameDetails.id,
+                userId: this.user.uid
+            }
+
+            let newCommentKey = firebase.database().ref().child(`Comments`).push().key
+
+            let updates = {}
+
+            updates[`/Comments/` + newCommentKey] = comment
+
+            firebase.database().ref().update(updates)
+
+            this.newComment = ``
+
+            this.allComments = []
+
+            const commentsDB = firebase.database().ref(`/Comments`)
+
+            commentsDB.on(`child_added`, (data) => {
+                this.bringComments(data)
+            })
 
         },
-        catchTheme: function () {
-            // AGARRAR EL TEMA GUARDADO EN EL LOCAL STORAGE (DARK/LIGHT)
-        }
+        bringComments: function (data) {
+            let comment = {
+                user: data.val().user,
+                date: data.val().date,
+                comment: data.val().comment,
+                userAvatar: data.val().userAvatar,
+                matchId: data.val().matchId,
+                userId: data.val().userId
+            }
 
+            this.allComments.push(comment)
+
+        },
+        changePage: function (page) {
+            if(page === `game info` && this.loggedIn === false || page === `registration form` && this.loggedIn === false){
+                this.alertMustBeLogged = true
+            }
+            else{
+                this.lastPage = this.page
+                this.page = page
+            }
+        },
+        registerNewUser: function () {
+            if (this.emailRegister != `` && this.passRegister != `` && this.passRegister === this.confirmPassRegister) {
+                firebase.auth().createUserWithEmailAndPassword(this.emailRegister.trim(), this.passRegister.trim())
+                    .then((userCredential) => {
+
+                        const user = userCredential.user;
+
+                        this.page = 'login'
+                        this.usernameRegister = ``
+                        this.emailRegister = ``
+                        this.passRegister = ``
+                        this.confirmPassRegister = ``
+                    })
+                    .catch((error) => {
+
+                        const errorCode = error.code;
+                        const errorMessage = error.message;
+
+                        console.log(errorCode)
+                        console.log(errorMessage)
+                        // ..
+                    })
+            }
+        },
+        userLogin: function () {
+            if (this.emailLogin != `` && this.passLogin != ``) {
+                firebase.auth().signInWithEmailAndPassword(this.emailLogin.trim(), this.passLogin.trim())
+                    .then((userCredential) => {
+
+                        const user = userCredential.user;
+
+                        this.page = 'home'
+                        this.loggedIn = true
+                        this.user = user
+                        this.userAlias = this.user.email
+                        this.emailLogin = ''
+                        this.passLogin = ''
+                        // ...
+                    })
+                    .catch((error) => {
+                        let errorCode = error.code;
+                        let errorMessage = error.message;
+
+                        console.log(errorCode)
+                        console.log(errorMessage)
+
+                        if(errorCode == `auth/wrong-password`){
+                            this.alertLogin = true
+                            this.alertMsg = `The password is invalid. Try again`
+                        }
+                        if(errorCode == `auth/user-not-found`){
+                            this.alertLogin = true
+                            this.alertMsg = `That email does not correspond to any registered user`
+                        }
+                        if(errorCode == `auth/invalid-email`){
+                            this.alertLogin = true
+                            this.alertMsg = `The email address is invalid. Try again`
+                        }
+
+                    });
+            }
+        },
+        registerWithGoogle: function () {
+            const provider = new firebase.auth.GoogleAuthProvider();
+
+            firebase.auth()
+                .signInWithPopup(provider)
+                .then((result) => {
+                    /** @type {firebase.auth.OAuthCredential} */
+                    const credential = result.credential;
+
+                    // This gives you a Google Access Token. You can use it to access the Google API.
+                    const token = credential.accessToken;
+                    // The signed-in user info.
+                    const user = result.user;
+                    console.log(user)
+
+                    this.page = 'login'
+                    // ...
+                }).catch((error) => {
+                    // Handle Errors here.
+                    const errorCode = error.code;
+                    console.log(errorCode)
+                    const errorMessage = error.message;
+                    // The email of the user's account used.
+                    const email = error.email;
+                    // The firebase.auth.AuthCredential type that was used.
+                    const credential = error.credential;
+                    // ...
+                });
+        },
+        loginWithGoogle: function () {
+            const provider = new firebase.auth.GoogleAuthProvider();
+
+            firebase.auth()
+                .signInWithPopup(provider)
+                .then((result) => {
+                    /** @type {firebase.auth.OAuthCredential} */
+
+                    let credential = result.credential;
+
+                    // This gives you a Google Access Token. You can use it to access the Google API.
+                    let token = credential.accessToken;
+                    // The signed-in user info.
+                    let user = result.user;
+
+                    this.user = user
+                    this.page = 'home'
+                    this.userAlias = this.user.displayName
+                    this.loggedIn = true
+                    this.userAvatar = this.user.photoURL
+
+                    this.emailLogin = ''
+                    this.passLogin = ''
+
+                    this.emailRegister = ''
+                    this.passRegister = ''
+                    // ...
+                }).catch((error) => {
+                    // Handle Errors here.
+                    var errorCode = error.code;
+                    var errorMessage = error.message;
+                    // The email of the user's account used.
+                    var email = error.email;
+                    // The firebase.auth.AuthCredential type that was used.
+                    var credential = error.credential;
+                    // ...
+                });
+        },
+        logOut: function () {
+            firebase.auth().signOut();
+
+            this.user = null
+            this.userAlias = 'Anonymous'
+            this.page = 'welcome'
+            this.loggedIn = false
+
+            this.emailLogin = ''
+            this.passLogin = ''
+        }
     },
     computed: {
         filter: function () {
@@ -556,6 +780,52 @@ createApp({
         },
         setDocumentTitle: function () {
             document.title = this.page.toUpperCase()
+        },
+        darkMode: function () {
+            this.theme === true ? this.pageTheme = `./styleDark.css` : this.pageTheme = `./style.css`
+            let themeSelected = document.getElementById(`style`)
+            themeSelected.href = this.pageTheme
+            localStorage.setItem(`themeSelected`, JSON.stringify(this.pageTheme))
+        },
+        keepUserLoggedIn: function () {
+            firebase.auth().onAuthStateChanged((user) => {
+                if (user) {
+                    this.user = user
+                    this.page = 'home'
+
+                    this.loggedIn = true
+                    this.userAvatar = this.user.photoURL
+
+                    this.emailLogin = ''
+                    this.passLogin = ''
+
+                    this.emailRegister = ''
+                    this.passRegister = ''
+
+                    let userInfo = JSON.parse(JSON.stringify(this.user))
+
+                    if (userInfo.displayName) {
+                        this.userAlias = userInfo.displayName
+                    } else {
+                        this.userAlias = userInfo.email
+                    }
+
+                } else {
+                    this.user = null
+                    this.userAlias = 'Anonimo'
+                    this.page = 'welcome'
+                    this.loggedIn = false
+
+                    this.emailLogin = ''
+                    this.passLogin = ''
+                }
+            })
+
+        },
+        filterComments: function () {
+            if(this.gameDetails){
+                this.matchComments = this.allComments.filter(comment => comment.matchId === this.gameDetails.id)
+            }
         }
     }
 }).mount('#app')
