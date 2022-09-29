@@ -324,7 +324,7 @@ body {
 
 .modal-content {
     width: 300px;
-    min-height: 36vh;
+    padding: 2vh;
     bottom: 12vh;
     border-radius: 1rem;
     background-color: #262424;
@@ -334,6 +334,7 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    text-align: center;
 }
 
 .modal-link {
@@ -606,7 +607,7 @@ body {
 
 .card{
     margin: 3px 0px;
-    width: 100vw;
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -635,7 +636,7 @@ body {
     border-radius: 100%;
 }
 
-.link-style{
+.link-style, .link-style-2{
     color: #64ffb4;
 }
 
@@ -741,4 +742,32 @@ body {
 .header-comment{
     display: flex;
     justify-content: space-between;
+}
+
+.navbar-buttons{
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.back-btn{
+    position: relative;
+}
+
+.back-icon-line1{
+    height: 3px;
+    width: 12px;
+    background: #C2C2C2;
+    border-radius: 50px;
+    position: absolute;
+    transform: translate(-50px, 4px) rotate(45deg);
+}
+
+.back-icon-line2{
+    height: 3px;
+    width: 12px;
+    background: #C2C2C2;
+    border-radius: 50px;
+    position: absolute;
+    transform: translate(-50px, -4px) rotate(-45deg);
 }

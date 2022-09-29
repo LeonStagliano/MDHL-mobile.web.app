@@ -93,9 +93,6 @@
 
 
 
-
-
-
 .footer {
     background-color: #C2C2C2;
     width: 100vw;
@@ -316,7 +313,7 @@ body {
 
 .modal-content {
     width: 300px;
-    min-height: 36vh;
+    padding: 2vh;
     bottom: 12vh;
     border-radius: 1rem;
     background-color: #C2C2C2;
@@ -326,6 +323,7 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    text-align: center;
 }
 
 .modal-link {
@@ -587,7 +585,7 @@ body {
 
 .card{
     margin: 3px 0px;
-    width: 100vw;
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -617,6 +615,10 @@ body {
 
 .link-style{
     color: white;
+}
+
+.link-style-2{
+    color: #008545;
 }
 
 .login-card{
@@ -739,7 +741,7 @@ body {
     background: black;
     border-radius: 50px;
     position: absolute;
-    transform: translateX(-51px) rotate(45deg) translateY(5px);
+    transform: translate(-50px, 4px) rotate(45deg);
 }
 
 .back-icon-line2{
@@ -748,5 +750,5 @@ body {
     background: black;
     border-radius: 50px;
     position: absolute;
-    transform: translateX(-49px) rotate(-45deg) translateY(-7px);
+    transform: translate(-50px, -4px) rotate(-45deg);
 }

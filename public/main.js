@@ -3,6 +3,7 @@ const { createApp } = Vue
 createApp({
     data() {
         return {
+            itsLoading: true,
             page: `welcome`,
             lastPage: ``,
             events: [
@@ -438,7 +439,7 @@ createApp({
                 "https://i0.wp.com/russianmachineneverbreaks.com/wp-content/uploads/2018/05/jay-beagle-kids-practice-3.jpg?ssl=1",
                 "https://media.purehockey.com/image/upload/v1565619693/wp-blog/best-hockey-drills-for-kids",
                 "https://bloximages.newyork1.vip.townnews.com/conwaydailysun.com/content/tncms/assets/v3/editorial/d/9d/d9d3ed42-7a1e-11ec-9a9f-5f7c44f2836b/61e9aa0103695.image.jpg?resize=1500%2C998",
-                "https://thumbs.dreamstime.com/b/hockey-goalie-4123672.jpg",
+                "https://cdn.pixabay.com/photo/2013/01/31/03/42/landscape-76913_960_720.jpg",
                 "https://cdn2.sportngin.com/attachments/photo/807f-140080759/tgmITEb_large.jpg",
                 "https://www.lakeplacid.com/f/styles/standard_header/public/page/34697/whitface-ski-infographicpage001.jpg?itok=4_0FQEFw"
             ],
@@ -468,6 +469,8 @@ createApp({
             pageTheme: ``,
             theme: ``,
             newComment: ``,
+            allComments: [],
+            matchComments: [],
             usernameRegister: ``,
             emailRegister: ``,
             passRegister: ``,
@@ -477,7 +480,10 @@ createApp({
             userAlias: `Anonymous`,
             userAvatar: null,
             loggedIn: false,
-            user: null
+            user: null,
+            alertLogin: false,
+            alertMsg: ``,
+            alertMustBeLogged: false
 
         }
     },
@@ -485,10 +491,6 @@ createApp({
         this.catchGames()
         this.gamesFiltered = this.games
         this.setGameStatus()
-
-        if (document.title === `Game Info`) {
-            this.catchGameTapped()
-        }
 
         this.catchSchools()
 
@@ -498,6 +500,14 @@ createApp({
                 this.theme = true
             }
         }
+
+        const commentsDB = firebase.database().ref(`/Comments`)
+
+        commentsDB.on(`child_added`, (data) => {
+            this.bringComments(data)
+        })
+
+        this.itsLoading = false
 
     },
     methods: {
@@ -562,12 +572,6 @@ createApp({
                 }
             })
         },
-        catchGameTapped: function () {
-            let urlSearch = window.location.search
-            let gameID = urlSearch.slice(4)
-
-            this.gameDetails = this.games.filter(game => game.id === gameID)
-        },
         catchSchools: function () {
             this.games.forEach(game => {
                 if (!this.schools.includes(game.location)) {
@@ -576,28 +580,60 @@ createApp({
             })
         },
         sendComment: function () {
-            this.games.forEach(game => {
-                if (!Array.isArray(game.comments)) {
-                    game.comments = []
-                }
-                if (game.id === this.gameDetails.id) {
-                    game.comments.push({
-                        autor: `León`,
-                        date: `${new Date().toLocaleTimeString()} - ${new Date().toLocaleDateString()}`,
-                        comment: this.newComment
-                    })
-                    this.gameDetails.comments = game.comments
-                }
-            })
+
+            let comment = {
+                user: this.userAlias ? this.userAlias : this.user.email,
+                date: `${new Date().toLocaleTimeString()} - ${new Date().toLocaleDateString()}`,
+                comment: this.newComment,
+                userAvatar: this.user.photoURL ? this.user.photoURL : ``,
+                matchId: this.gameDetails.id,
+                userId: this.user.uid
+            }
+
+            let newCommentKey = firebase.database().ref().child(`Comments`).push().key
+
+            let updates = {}
+
+            updates[`/Comments/` + newCommentKey] = comment
+
+            firebase.database().ref().update(updates)
+
             this.newComment = ``
+
+            this.allComments = []
+
+            const commentsDB = firebase.database().ref(`/Comments`)
+
+            commentsDB.on(`child_added`, (data) => {
+                this.bringComments(data)
+            })
+
+        },
+        bringComments: function (data) {
+            let comment = {
+                user: data.val().user,
+                date: data.val().date,
+                comment: data.val().comment,
+                userAvatar: data.val().userAvatar,
+                matchId: data.val().matchId,
+                userId: data.val().userId
+            }
+
+            this.allComments.push(comment)
+
         },
         changePage: function (page) {
-            this.lastPage = this.page
-            this.page = page
+            if(page === `game info` && this.loggedIn === false || page === `registration form` && this.loggedIn === false){
+                this.alertMustBeLogged = true
+            }
+            else{
+                this.lastPage = this.page
+                this.page = page
+            }
         },
         registerNewUser: function () {
             if (this.emailRegister != `` && this.passRegister != `` && this.passRegister === this.confirmPassRegister) {
-                firebase.auth().createUserWithEmailAndPassword(this.emailRegister, this.passRegister)
+                firebase.auth().createUserWithEmailAndPassword(this.emailRegister.trim(), this.passRegister.trim())
                     .then((userCredential) => {
 
                         const user = userCredential.user;
@@ -621,7 +657,7 @@ createApp({
         },
         userLogin: function () {
             if (this.emailLogin != `` && this.passLogin != ``) {
-                firebase.auth().signInWithEmailAndPassword(this.emailLogin, this.passLogin)
+                firebase.auth().signInWithEmailAndPassword(this.emailLogin.trim(), this.passLogin.trim())
                     .then((userCredential) => {
 
                         const user = userCredential.user;
@@ -635,10 +671,25 @@ createApp({
                         // ...
                     })
                     .catch((error) => {
-                        var errorCode = error.code;
-                        var errorMessage = error.message;
+                        let errorCode = error.code;
+                        let errorMessage = error.message;
+
                         console.log(errorCode)
                         console.log(errorMessage)
+
+                        if(errorCode == `auth/wrong-password`){
+                            this.alertLogin = true
+                            this.alertMsg = `The password is invalid. Try again`
+                        }
+                        if(errorCode == `auth/user-not-found`){
+                            this.alertLogin = true
+                            this.alertMsg = `That email does not correspond to any registered user`
+                        }
+                        if(errorCode == `auth/invalid-email`){
+                            this.alertLogin = true
+                            this.alertMsg = `The email address is invalid. Try again`
+                        }
+
                     });
             }
         },
@@ -697,12 +748,10 @@ createApp({
 
                     this.emailRegister = ''
                     this.passRegister = ''
-                    console.log(this.user)
                     // ...
                 }).catch((error) => {
                     // Handle Errors here.
                     var errorCode = error.code;
-                    console.log(errorCode)
                     var errorMessage = error.message;
                     // The email of the user's account used.
                     var email = error.email;
@@ -715,15 +764,13 @@ createApp({
             firebase.auth().signOut();
 
             this.user = null
-            this.userAlias = 'Anonimo'
-            this.page = 'home'
+            this.userAlias = 'Anonymous'
+            this.page = 'welcome'
             this.loggedIn = false
 
             this.emailLogin = ''
             this.passLogin = ''
-            // document.getElementById('avatar').src = this.foto
         }
-
     },
     computed: {
         filter: function () {
@@ -740,7 +787,7 @@ createApp({
             themeSelected.href = this.pageTheme
             localStorage.setItem(`themeSelected`, JSON.stringify(this.pageTheme))
         },
-        inicioSesionUsuario: function () {
+        keepUserLoggedIn: function () {
             firebase.auth().onAuthStateChanged((user) => {
                 if (user) {
                     this.user = user
@@ -775,5 +822,10 @@ createApp({
             })
 
         },
+        filterComments: function () {
+            if(this.gameDetails){
+                this.matchComments = this.allComments.filter(comment => comment.matchId === this.gameDetails.id)
+            }
+        }
     }
 }).mount('#app')
