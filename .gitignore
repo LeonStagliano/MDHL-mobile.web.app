@@ -69,7 +69,7 @@ node_modules/
 
 # archivos Firebase
 
-.firebaserc
-firebase.json
-firestore.indexes.json
-firestore.rules
+# .firebaserc
+# firebase.json
+# firestore.indexes.json
+# firestore.rules
