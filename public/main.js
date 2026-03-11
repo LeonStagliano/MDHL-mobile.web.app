@@ -9,14 +9,14 @@ createApp({
             events: [
                 {
                     type: `event`,
-                    date: new Date(`August 04, 2022`),
+                    date: new Date(`March 04, 2026`),
                     month: `AUGUST`,
                     day: `04`,
                     title: `MDHL Fundraiser`
                 },
                 {
                     type: `event`,
-                    date: new Date(`August 16, 2022`),
+                    date: new Date(`March 06, 2026`),
                     month: `AUGUST`,
                     day: `16`,
                     title: `Season Kick-off: Meet the Teams`
@@ -24,7 +24,7 @@ createApp({
                 {
                     id: `0901U1U4`,
                     type: `match`,
-                    date: new Date(`September 01, 2022`),
+                    date: new Date(`September 01, 2026`),
                     month: `SEPTEMBER`,
                     day: `01`,
                     time: `9:30 am`,
@@ -42,7 +42,7 @@ createApp({
                 {
                     id: `0901U3U2`,
                     type: `match`,
-                    date: new Date(`September 01, 2022`),
+                    date: new Date(`September 01, 2026`),
                     month: `SEPTEMBER`,
                     day: `01`,
                     time: `1:00 pm`,
@@ -60,7 +60,7 @@ createApp({
                 {
                     id: `0908U5U6`,
                     type: `match`,
-                    date: new Date(`September 08, 2022`),
+                    date: new Date(`September 08, 2026`),
                     month: `SEPTEMBER`,
                     day: `08`,
                     time: `9:30 am`,
@@ -78,7 +78,7 @@ createApp({
                 {
                     id: `0908U6U1`,
                     type: `match`,
-                    date: new Date(`September 08, 2022`),
+                    date: new Date(`September 08, 2026`),
                     month: `SEPTEMBER`,
                     day: `08`,
                     time: `1:00 pm`,
@@ -96,7 +96,7 @@ createApp({
                 {
                     id: `0915U2U4`,
                     type: `match`,
-                    date: new Date(`September 15, 2022`),
+                    date: new Date(`September 15, 2026`),
                     month: `SEPTEMBER`,
                     day: `15`,
                     time: `9:30 am`,
@@ -114,7 +114,7 @@ createApp({
                 {
                     id: `0915U3U5`,
                     type: `match`,
-                    date: new Date(`September 15, 2022`),
+                    date: new Date(`September 15, 2026`),
                     month: `SEPTEMBER`,
                     day: `15`,
                     time: `1:00 pm`,
@@ -132,7 +132,7 @@ createApp({
                 {
                     id: `0922U1U3`,
                     type: `match`,
-                    date: new Date(`September 22, 2022`),
+                    date: new Date(`September 22, 2026`),
                     month: `SEPTEMBER`,
                     day: `22`,
                     time: `9:30 am`,
@@ -150,7 +150,7 @@ createApp({
                 {
                     id: `0922U2U6`,
                     type: `match`,
-                    date: new Date(`September 22, 2022`),
+                    date: new Date(`September 22, 2026`),
                     month: `SEPTEMBER`,
                     day: `22`,
                     time: `1:00 pm`,
@@ -168,7 +168,7 @@ createApp({
                 {
                     id: `0929U4U5`,
                     type: `match`,
-                    date: new Date(`September 29, 2022`),
+                    date: new Date(`September 29, 2026`),
                     month: `SEPTEMBER`,
                     day: `29`,
                     time: `9:30 am`,
@@ -186,7 +186,7 @@ createApp({
                 {
                     id: `1006U2U5`,
                     type: `match`,
-                    date: new Date(`October 06, 2022`),
+                    date: new Date(`October 06, 2026`),
                     month: `OCTOBER`,
                     day: `06`,
                     time: `9:30 am`,
@@ -204,7 +204,7 @@ createApp({
                 {
                     id: `1006U1U6`,
                     type: `match`,
-                    date: new Date(`October 06, 2022`),
+                    date: new Date(`October 06, 2026`),
                     month: `OCTOBER`,
                     day: `06`,
                     time: `1:00 pm`,
@@ -222,7 +222,7 @@ createApp({
                 {
                     id: `1008U3U4`,
                     type: `match`,
-                    date: new Date(`October 08, 2022`),
+                    date: new Date(`October 08, 2026`),
                     month: `OCTOBER`,
                     day: `08`,
                     time: `9:30 am`,
@@ -240,7 +240,7 @@ createApp({
                 {
                     id: `1008U5U1`,
                     type: `match`,
-                    date: new Date(`October 08, 2022`),
+                    date: new Date(`October 08, 2026`),
                     month: `OCTOBER`,
                     day: `08`,
                     time: `1:00 pm`,
@@ -258,7 +258,7 @@ createApp({
                 {
                     id: `1020U6U3`,
                     type: `match`,
-                    date: new Date(`October 20, 2022`),
+                    date: new Date(`October 20, 2026`),
                     month: `OCTOBER`,
                     day: `20`,
                     time: `9:30 am`,
@@ -276,7 +276,7 @@ createApp({
                 {
                     id: `1020U2U4`,
                     type: `match`,
-                    date: new Date(`October 20, 2022`),
+                    date: new Date(`October 20, 2026`),
                     month: `OCTOBER`,
                     day: `20`,
                     time: `1:00 pm`,
@@ -294,7 +294,7 @@ createApp({
                 {
                     id: `1027U3U1`,
                     type: `match`,
-                    date: new Date(`October 27, 2022`),
+                    date: new Date(`October 27, 2026`),
                     month: `OCTOBER`,
                     day: `27`,
                     time: `9:30 am`,
@@ -312,7 +312,7 @@ createApp({
                 {
                     id: `1027U5U6`,
                     type: `match`,
-                    date: new Date(`October 27, 2022`),
+                    date: new Date(`October 27, 2026`),
                     month: `OCTOBER`,
                     day: `27`,
                     time: `1:00 pm`,
