@@ -12,6 +12,11 @@ The option to register and participate by leaving comments about the matches was
 
 <a href="https://mdhl-mobile.web.app" target="_blank"> <img src="https://github.com/user-attachments/assets/ffc83f06-7728-4c32-8ceb-7fd161a62925" width="48" height="48"> </a>
 
+## ⤴️ Website Flowchart
+
+![Usuarios y Diagrama de Flujo_page-0001b](https://github.com/user-attachments/assets/cb2b2b20-fb2a-431c-9a50-5fb39e7e4db1)
+
+
 ## 📚 Website Mockups
 Regarding the design, special attention has been given to UX/UI, prioritizing accessibility and ease of navigation throughout the website. The Figma tool was used to create mockups for each section, and a light and a dark theme have been included to suit the preferences of each registered user.
 
