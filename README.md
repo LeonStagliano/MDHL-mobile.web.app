@@ -8,7 +8,7 @@ The requirement was to provide a user-friendly website accessible from phones or
 
 The option to register and participate by leaving comments about the matches was also included.
 
-### Visit it here!
+### 👇🏼 Visit it here!
 
 <a href="https://mdhl-mobile.web.app" target="_blank"> <img src="https://github.com/user-attachments/assets/ffc83f06-7728-4c32-8ceb-7fd161a62925" width="48" height="48"> </a>
 
